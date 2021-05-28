@@ -31,7 +31,6 @@ import static org.eclipse.leshan.client.object.Security.psk;
 @Slf4j
 public class PSKLwM2MIntegrationTest extends SecurityAbstractLw2mIntegrationTest {
 
-    private final int port = 5686;
     public static final String PSK_TRANSPORT_CONFIGURATION_JSON_FILE_PATH = "lwm2m/transportConfiguration/PSKTransportConfiguration.json";
     public static final String GOOD_PSK_ID = "Good_Client_identity";
     public static final byte[] GOOD_PSK_KEY = Hex.decodeHex("73656372657450534b".toCharArray());
@@ -76,10 +75,5 @@ public class PSKLwM2MIntegrationTest extends SecurityAbstractLw2mIntegrationTest
         PSKClientCredentialsConfig pskClientCredentialsConfig = new PSKClientCredentialsConfig(GOOD_PSK_ID, getEndpoint());
         pskClientCredentialsConfig.setKey(GOOD_PSK_KEY);
         return pskClientCredentialsConfig;
-    }
-
-    @Override
-    public int getPort() {
-        return port;
     }
 }

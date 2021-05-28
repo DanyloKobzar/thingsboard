@@ -32,7 +32,6 @@ import static org.eclipse.leshan.client.object.Security.rpk;
 @Slf4j
 public class RPKLwM2MIntegrationTest extends SecurityAbstractLw2mIntegrationTest {
 
-    private final int port = 5689;
     public static final String RPK_TRANSPORT_CONFIGURATION_JSON_FILE_PATH = "lwm2m/transportConfiguration/RPKTransportConfiguration.json";
     public static final ObjectMapper mapper = JacksonUtil.OBJECT_MAPPER;
     public String transportConfigurationJsonAsString;
@@ -87,10 +86,5 @@ public class RPKLwM2MIntegrationTest extends SecurityAbstractLw2mIntegrationTest
     @Override
     public String getEndpoint() {
         return super.getEndpoint();
-    }
-
-    @Override
-    public int getPort() {
-        return port;
     }
 }

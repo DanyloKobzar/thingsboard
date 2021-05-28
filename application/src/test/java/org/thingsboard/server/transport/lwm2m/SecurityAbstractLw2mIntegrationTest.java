@@ -48,13 +48,19 @@ public abstract class SecurityAbstractLw2mIntegrationTest extends AbstractLwM2MI
 
     public static final String SERVER_PUBLIC_KEY = "serverPublicKey";
     public static final String PORT = "port";
+    private final int coapSecurePort = 5686;
 
-    private final NetworkConfig coapConfig = new NetworkConfig().setString("COAP_SECURE_PORT", Integer.toString(getPort()));
+    private final NetworkConfig coapConfig = new NetworkConfig()
+            .setString(NetworkConfig.Keys.COAP_SECURE_PORT, Integer.toString(getCoapSecurePort()));
+//            .setString(NetworkConfig.Keys.COAP_PORT, Integer.toString(getCoapInsecurePort()))
+//            .setString(NetworkConfig.Keys.HTTP_PORT, Integer.toString(getCoapHttpPort()));
     private final String endpoint = "deviceAEndpoint";
-    private final String serverUri = "coaps://localhost:" + getPort();
+    private final String serverUri = "coaps://localhost:" + getCoapSecurePort();
     private LwM2MTestClient client;
 
-    public abstract int getPort();
+    public int getCoapSecurePort(){
+        return coapSecurePort;
+    }
 
     @NotNull
     public Device createDevice(String credentialsId, LwM2MClientCredentialsConfig credentialsConfig) throws Exception {
@@ -167,7 +173,7 @@ public abstract class SecurityAbstractLw2mIntegrationTest extends AbstractLwM2MI
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(configPath)) {
             ObjectNode config = (ObjectNode) mapper.readTree(inputStream);
             ObjectNode lvm2mServerConfiguration = getLvm2mServerConfigurationFromTransportConfiguration(config);
-            lvm2mServerConfiguration.put(PORT, getPort());
+            lvm2mServerConfiguration.put(PORT, getCoapSecurePort());
             return config;
         } catch (Exception e) {
             log.error("Error running LW2M RPK test", e);
